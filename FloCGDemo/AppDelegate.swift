@@ -17,6 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let settings = UIUserNotificationSettings(forTypes: [.Badge, .Sound, .Alert], categories: nil)
+        application.registerUserNotificationSettings(settings)
+        
         return true
     }
 
@@ -106,6 +110,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    lazy var localNotification: UILocalNotification = {
+        let notification = UILocalNotification()
+        notification.fireDate = NSDate(timeIntervalSinceNow: 10 * 60)
+        notification.timeZone = NSTimeZone.defaultTimeZone()
+        notification.alertBody = "喝水的时间到了哦~~"
+        if #available(iOS 8.2, *) {
+            notification.alertTitle = "八杯水提醒您"
+        } else {
+            // Fallback on earlier versions
+        }
+        notification.soundName = UILocalNotificationDefaultSoundName
+        notification.applicationIconBadgeNumber = 1
+        return notification
+    }()
 
 }
 

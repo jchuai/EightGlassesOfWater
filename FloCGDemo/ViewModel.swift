@@ -18,9 +18,7 @@ class ViewModel {
     var todayCounter: Int16 {
         return counters[todayIndex]
     }
-    
-//    private var items: [FloDataItem] = []
-    
+        
     private let entityName = "FloDataItem"
     private var today: NSDate
     private var todayIndex: Int

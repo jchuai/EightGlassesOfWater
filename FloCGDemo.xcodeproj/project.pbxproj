@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AE10CF1B1C83E9CB009A01FD /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE10CF1A1C83E9CB009A01FD /* ViewModel.swift */; };
+		AE10CF1E1C844ABF009A01FD /* FDUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE10CF1D1C844ABF009A01FD /* FDUtils.swift */; };
 		AE28403B1C82D54F00F3C59B /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE28403A1C82D54F00F3C59B /* BackgroundView.swift */; };
 		AE28403D1C82E90900F3C59B /* MedalImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE28403C1C82E90900F3C59B /* MedalImageView.swift */; };
 		AEDF73A01C716FDA009D376D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF739F1C716FDA009D376D /* AppDelegate.swift */; };
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		AE10CF1A1C83E9CB009A01FD /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		AE10CF1D1C844ABF009A01FD /* FDUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDUtils.swift; sourceTree = "<group>"; };
 		AE28403A1C82D54F00F3C59B /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 		AE28403C1C82E90900F3C59B /* MedalImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedalImageView.swift; sourceTree = "<group>"; };
 		AEDF739C1C716FDA009D376D /* 八杯水.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "八杯水.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,7 +65,6 @@
 			isa = PBXGroup;
 			children = (
 				AEDF73B41C7174E3009D376D /* PushButton.swift */,
-				AEDF73B61C717651009D376D /* UIView+Geometry.swift */,
 				AEDF73B81C719F5A009D376D /* CounterView.swift */,
 				AEDF73BC1C71B3B2009D376D /* GraphView.swift */,
 				AE28403A1C82D54F00F3C59B /* BackgroundView.swift */,
@@ -78,6 +79,15 @@
 				AE10CF1A1C83E9CB009A01FD /* ViewModel.swift */,
 			);
 			name = model;
+			sourceTree = "<group>";
+		};
+		AE10CF1C1C844AA6009A01FD /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				AEDF73B61C717651009D376D /* UIView+Geometry.swift */,
+				AE10CF1D1C844ABF009A01FD /* FDUtils.swift */,
+			);
+			name = utils;
 			sourceTree = "<group>";
 		};
 		AEDF73931C716FDA009D376D = {
@@ -108,6 +118,7 @@
 		AEDF73BA1C71B2BF009D376D /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				AE10CF1C1C844AA6009A01FD /* utils */,
 				AE10CF191C83E797009A01FD /* model */,
 				AE10CF181C83E780009A01FD /* views */,
 				AE10CF171C83E775009A01FD /* controller */,
@@ -207,6 +218,7 @@
 				AEDF73A81C716FDA009D376D /* FloCGDemo.xcdatamodeld in Sources */,
 				AE28403D1C82E90900F3C59B /* MedalImageView.swift in Sources */,
 				AEDF73B71C717651009D376D /* UIView+Geometry.swift in Sources */,
+				AE10CF1E1C844ABF009A01FD /* FDUtils.swift in Sources */,
 				AEDF73B51C7174E3009D376D /* PushButton.swift in Sources */,
 				AEDF73B91C719F5A009D376D /* CounterView.swift in Sources */,
 			);

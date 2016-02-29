@@ -59,6 +59,7 @@ class ViewController: UIViewController {
         }
         counterView.counter++
         viewModel.save(counterView.counter)
+        FDUtils.schedulLocalNotification()
     }
     
     func subtract() {
@@ -67,6 +68,7 @@ class ViewController: UIViewController {
         }
         counterView.counter--
         viewModel.save(counterView.counter)
+        FDUtils.schedulLocalNotification()
     }
     
     func reloadGraphView() {
