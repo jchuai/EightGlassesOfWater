@@ -39,17 +39,17 @@ class ViewController: UIViewController {
         
         let centerX  = self.view.width / 2
         
-        containerView.centerX = centerX
-        containerView.centerY = 150
-        counterView.centerX = containerView.width / 2
-        counterView.centerY = containerView.height / 2
-        graphView.center = counterView.center
-        
         plusButton.centerX = centerX
         plusButton.centerY = self.view.height / 2 + 100
         
         subtractButton.centerX = centerX
         subtractButton.centerY = plusButton.centerY + 100
+        
+        containerView.top = self.view.height * 0.03
+        containerView.centerX = centerX
+        counterView.centerX = containerView.width / 2
+        counterView.centerY = containerView.height / 2
+        graphView.center = counterView.center
     }
     
     override func viewDidAppear(animated: Bool) {
