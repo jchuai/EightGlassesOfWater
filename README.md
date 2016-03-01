@@ -1,5 +1,6 @@
-# EightWaterApp
-EightWater iOS App, written in Swift
+# EightGlassesOfWater
+
+EightGlassesOfWater iOS App, written in Swift
 
 This app is based on the tutorial about CoreGraphics.
 
