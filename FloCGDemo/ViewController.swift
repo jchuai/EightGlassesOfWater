@@ -19,8 +19,7 @@ class ViewController: UIViewController {
         self.view.addSubview(containerView)
         containerView.addSubview(counterView)
         counterView.counter = viewModel.todayCounter
-//        graphView.graphPoints = [4, 2, 6, 4, 5, 8, 3]
-
+        
         self.view.addSubview(plusButton)
         self.view.addSubview(subtractButton)
     }
@@ -53,13 +52,20 @@ class ViewController: UIViewController {
         subtractButton.centerY = plusButton.centerY + 100
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        graphView.scrollToItemAtIndexPath(NSIndexPath(forRow: graphView.collection.count - 1, inSection: 0), atScrollPosition: .None, animated: false)
+    }
+    
     func plus() {
         if !displayingPrimary {
             flip()
         }
         counterView.counter++
         viewModel.save(counterView.counter)
-        FDUtils.schedulLocalNotification()
+        if counterView.counter != 8 {
+            FDUtils.schedulLocalNotification()
+        }
     }
     
     func subtract() {
@@ -72,7 +78,7 @@ class ViewController: UIViewController {
     }
     
     func reloadGraphView() {
-        graphView.graphPoints = viewModel.counters
+        graphView.collection = viewModel.counters
     }
     
     private var displayingPrimary : Bool = true
@@ -124,8 +130,8 @@ class ViewController: UIViewController {
         return view
     }()
     
-    lazy var graphView: GraphView = {
-        let view = GraphView(frame: CGRectMake(0, 0, 300, 230))
+    lazy var graphView: GraphCollectionView = {
+        let view = GraphCollectionView(frame: CGRectMake(0, 0, 300, 230))
         view.backgroundColor = UIColor.clearColor()
         return view
     }()

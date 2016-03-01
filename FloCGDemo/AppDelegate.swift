@@ -47,6 +47,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
     }
+    
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        application.applicationIconBadgeNumber = 0
+    }
 
     // MARK: - Core Data stack
 
@@ -113,7 +117,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     lazy var localNotification: UILocalNotification = {
         let notification = UILocalNotification()
-        notification.fireDate = NSDate(timeIntervalSinceNow: 10 * 60)
+        notification.fireDate = NSDate(timeIntervalSinceNow: 60 * 60)
         notification.timeZone = NSTimeZone.defaultTimeZone()
         notification.alertBody = "喝水的时间到了哦~~"
         if #available(iOS 8.2, *) {

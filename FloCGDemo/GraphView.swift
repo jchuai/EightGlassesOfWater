@@ -100,6 +100,7 @@ class GraphView: UIView {
     }
     
     func setupSubviews() {
+        self.backgroundColor = UIColor.clearColor()
         self.addSubview(titleLabel)
         self.addSubview(averageLabel)
         self.addSubview(topTagLabel)

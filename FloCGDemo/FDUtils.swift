@@ -19,3 +19,11 @@ class FDUtils {
     }
     
 }
+
+extension NSDate {
+    func localDate() -> NSDate {
+        let tz = NSTimeZone.defaultTimeZone()
+        let seconds = tz.secondsFromGMTForDate(self)
+        return NSDate(timeInterval: Double(seconds), sinceDate: self)
+    }
+}

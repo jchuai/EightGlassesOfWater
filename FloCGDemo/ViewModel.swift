@@ -13,60 +13,85 @@ import UIKit
 class ViewModel {
     weak var delegate: ViewController?
     
-    var counters: [Int16] = [0, 0, 0, 0, 0, 0, 0]
+    var counters: [[Int16]] = []
     
     var todayCounter: Int16 {
-        return counters[todayIndex]
+        return counters.last?[todayIndex] ?? 0
     }
         
     private let entityName = "FloDataItem"
     private var today: NSDate
     private var todayIndex: Int
-    private var monday: NSDate
-    private var nextMonday: NSDate
     
     init() {
-        today = calendar.dateBySettingHour(0, minute: 0, second: 0, ofDate: NSDate(timeIntervalSinceNow: 0), options: [])!
-        let components = calendar.components([.Year, .Month, .Weekday, .Day], fromDate: today)
-        todayIndex = components.weekday - 2
-        
-        components.day -= (components.weekday - 2)
-        monday = calendar.dateFromComponents(components)!
-        
-        components.day += 7
-        nextMonday = calendar.dateFromComponents(components)!
+        today = calendar.startOfDayForDate(NSDate()).localDate()
+        todayIndex = calendar.component(.Weekday, fromDate: today) - 2
     }
     
     func loadDataItems() {
-        let predicate = NSPredicate(format: "(date >= %@) AND (date < %@)", monday, nextMonday)
+        counters = loadAllDataItems()
+        if counters.isEmpty {
+            counters = [Array<Int16>(count: 7, repeatedValue: 0)]
+        }
+        delegate?.reloadGraphView()
+    }
+    
+    private func loadAllDataItems() -> [[Int16]] {
+        let items = loadDataItems(NSDate(timeIntervalSince1970: 0), endDay: today)
+        var list = [[Int16]]()
+        var tempList = Array<Int16>(count: 7, repeatedValue: 0)
+        for index in 0 ..< items.count {
+            let item = items[index]
+            let weekdayIndex = calendar.component(.Weekday, fromDate: item.date) - 2
+            tempList.insert(item.count, atIndex: weekdayIndex)
+            if weekdayIndex == 6 || index == items.count - 1 {
+                list.append(tempList)
+                tempList = Array<Int16>(count: 7, repeatedValue: 0)
+            }
+        }
+        return list
+    }
+    
+    private func loadDataItems(startDay: NSDate, endDay: NSDate) -> [FloDataItem] {
+        
+        let predicate = NSPredicate(format: "(date >= %@) AND (date <= %@)", startDay, endDay)
         let request = NSFetchRequest(entityName: entityName)
         request.predicate = predicate
+        
         do {
+            
             let list = try managedContext.executeFetchRequest(request) as! [FloDataItem]
+            return list
             
-            for item in list {
-                let component = calendar.components([.Weekday], fromDate: item.date)
-                let index = component.weekday - 2
-                counters[index] = item.count
-            }
-            
-            delegate?.reloadGraphView()
-
         } catch {
             assertionFailure("Failed to fetch DataItems: \(error)")
         }
+        return []
     }
     
     func save(count: Int16) {
         
-        counters[todayIndex] = count
+        counters[counters.count - 1][todayIndex] = count
         
-        let item = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: managedContext) as! FloDataItem
-        item.date = today
-        item.count = count
+        let request = NSFetchRequest(entityName: entityName)
+        let predicate = NSPredicate(format: "date == %@", today)
+        request.predicate = predicate
         
         do {
+            
+            let list = try managedContext.executeFetchRequest(request) as! [FloDataItem]
+            
+            if list.isEmpty {
+                let item = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: managedContext) as! FloDataItem
+                item.date = today
+                item.count = count
+            } else {
+                let item = list[0]
+                item.count = count
+            }
+            
             try managedContext.save()
+            
         } catch {
             assertionFailure("Failed to save dataItem: \(error)")
         }
